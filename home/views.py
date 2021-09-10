@@ -1,4 +1,4 @@
-from django.shortcuts import render, HttpResponseRedirect
+from django.shortcuts import render, HttpResponseRedirect, get_object_or_404
 from .forms import SignUpForm, LoginForm, EditUserChangeForm
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
@@ -13,9 +13,8 @@ def homepage(request):
 
 def dashboard(request):
     if request.user.is_authenticated:
-        user_data = User_Profile.objects.all()
-        user_images = User_images.objects.all()        
-        return render(request, 'dating/dashboard.html', {'user_data': user_data, 'user_images': user_images})
+        user_data = User_Profile.objects.all()    
+        return render(request, 'dating/dashboard.html', {'user_data': user_data})
     else:
         messages.success(request, 'login first')
         return HttpResponseRedirect('/user_login/')

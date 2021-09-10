@@ -1,6 +1,8 @@
 from django.contrib import admin
-from .models import User_Profile, User_images
+from .models import *
 # Register your models here.
+
+
 class UserImageAdmin(admin.StackedInline):
     model = User_images
 
