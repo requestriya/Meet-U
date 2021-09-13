@@ -2,9 +2,19 @@
 
 
 {% block content %}
-<div class="container my-5">
-    <div class="lead text-center mx-auto my-5">
-        <h1>Welcome to Meet You</h1>
+<style>
+    .chat-logo{
+        animation: bounce;
+	    animation-duration: 3s;
+    }
+    .card{
+        filter: drop-shadow(3px 5px 5px 3px rgb(0, 0, 0));
+    }
+</style>
+
+<div class="container my-3">
+    <div class="lead text-center mx-auto">
+        <h1>Welcome to MeetU</h1>
         <a href="{% url 'logout' %">Logout</a>
         {% if messages %}
         {% for message in messages %}
@@ -19,21 +29,62 @@
     </div>
 
 <div class="row">
-    <div class="col-md-4 my-2">
-        <div class="card">
+    <div class="col-md-4" id="sidebar">
+        <div class="card h-100">
             <div class="card-body">
+               <ul class="list-group">
+                   <a href="">
+                       <li class="list-group-item text-center">
+                           <img src="{{profile.dp.url}}" width="80px" class="rounded-circle" alt="">
+                           {% if not profile.user.first_name == '' %}
+                           <h5>{{profile.user.first_name}} {{profile.user.last_name}}</h5>
+                           {% endif %}
+                       </li>
+                   </a>
+                   <div class="py-2">
+                    <a href=""><li class="list-group-item">Search by filter</li></a>
+                    <hr>
+                    <a href=""><li class="list-group-item">Your profile</li></a>
+                    <hr>
+                    <a href=""><li class="list-group-item">Your Uploads</li></a>
+                    <hr>
+                    <a href=""><li class="list-group-item">Logout</li></a>
+                   </div>
+               </ul>
+            </div>
+        </div>
+       </div>
+    
+    <div class="col-md-7 text-center">
+       <div class="card">
+           <div class="card-body">
+            <div id=demo class="carousel slide bg-dark" data-ride=carousel>  
+                <div class=carousel-inner>
+                   {% for fm in user_data %}
+                <div class="carousel-item {% if forloop.counter0 == 0 %} active {% endif %}">
+                <img src="{{fm.dp.url}}" style="height: 90vh; object-fit: contain;" class="d-block w-100">
+                <div class="carousel-caption"> 
+                   <h5> <span class="badge badge-dark">{{fm.user.first_name}} {{fm.user.last_name}}</span>, <span class="badge badge-warning">{{fm.age}}</span></h5>
+                   <h5 class="badge badge-dark">{{fm.bio}}</h5> <br>
+                   <h5 class="badge badge-warning">{{fm.interest}}</h5>
+                </div>
+                </div>
+                {% endfor %}
+                </div>
+                <a class=carousel-control-prev href="{% url 'logout' %}" data-slide=prev>
+                <span class="icon">
+                    <i class="fas fa-comment-dots fa-3x text-success chat-logo" title="click to chat"></i>
+                </span>
+                </a>
+                <a class=carousel-control-next href=#demo data-slide=next>
+                <span class="icon"> 
+                    <i class="fas fa-times-circle fa-3x text-danger" title="move on"></i>
+                </span>
+                </a>
+                </div>
+           </div>
+       </div>
 
-            </div>
-        </div>
-    </div>
-    <div class="col-md-7 my-2 text-center">
-        {% for ud in user_data %}
-        <div class="card">
-            <div class="card-body">
-                <img src="{{ud.dp.url}}" alt=""  height="500px">
-            </div>
-        </div>
-        {% endfor %}
     </div>
 </div>
 </div>

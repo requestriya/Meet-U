@@ -14,7 +14,9 @@ def homepage(request):
 def dashboard(request):
     if request.user.is_authenticated:
         user_data = User_Profile.objects.all()    
-        return render(request, 'dating/dashboard.html', {'user_data': user_data})
+        user = request.user
+        profile = User_Profile.objects.get(user=user)
+        return render(request, 'dating/dashboard.html', {'user_data': user_data, 'profile': profile})
     else:
         messages.success(request, 'login first')
         return HttpResponseRedirect('/user_login/')
@@ -25,10 +27,17 @@ def create_user(request):
         if form.is_valid():
             user = form.save()
             login(request, user)
-            return HttpResponseRedirect('/dashboard/')          
+            return HttpResponseRedirect('/interest/')          
     else :
         signup_form = SignUpForm()
     return render(request, 'dating/user_sign.html', {'signup_form': signup_form})
+
+def user_interest(request):
+    if request.user.is_authenticated:
+        if request.method == 'POST':
+            data = request.POST
+            User_Profile.objects.update(interest= data['interest'])
+        return render(request, 'dating/interest.html')
 
 def user_login(request):
     if request.method == "POST":

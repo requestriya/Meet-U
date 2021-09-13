@@ -8,9 +8,9 @@ class User_Profile(models.Model):
     dp = models.ImageField(blank=True, null=True)
     images = models.ImageField(blank=True, null=True)
     bio = models.CharField(max_length=200)
-    interest = models.CharField(max_length=200)
-    age = models.DateField()
-    gender = models.CharField(max_length=50)
+    interest = models.CharField(max_length=200, blank=True, null=True)
+    age = models.DateField(blank=True, null=True)
+    gender = models.CharField(max_length=50, blank=True, null=True)
     
 
 class User_images(models.Model):
