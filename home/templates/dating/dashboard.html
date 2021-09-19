@@ -15,7 +15,7 @@
 <div class="container my-3">
     <div class="lead text-center mx-auto">
         <h1>Welcome to MeetU</h1>
-        <a href="{% url 'logout' %">Logout</a>
+        
         {% if messages %}
         {% for message in messages %}
         <div {% if message.tags %} class="alert alert-danger alert-dismissible fade show" {% endif %}>
@@ -35,7 +35,10 @@
                <ul class="list-group">
                    <a href="">
                        <li class="list-group-item text-center">
-                           <img src="{{profile.dp.url}}" width="80px" class="rounded-circle" alt="">
+                           {% if profile %}
+                           <img src="{{profile.get_photo}}" width="80px" class="rounded-circle" alt="">
+                           {% else %}
+                           <h1>no photo</h1>
                            {% if not profile.user.first_name == '' %}
                            <h5>{{profile.user.first_name}} {{profile.user.last_name}}</h5>
                            {% endif %}
@@ -48,7 +51,7 @@
                     <hr>
                     <a href=""><li class="list-group-item">Your Uploads</li></a>
                     <hr>
-                    <a href=""><li class="list-group-item">Logout</li></a>
+                    <a href="{% url 'logout' %}"><li class="list-group-item">Logout</li></a>
                    </div>
                </ul>
             </div>

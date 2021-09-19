@@ -28,16 +28,28 @@ def create_user(request):
             user = form.save()
             login(request, user)
             return HttpResponseRedirect('/interest/')          
-    else :
-        signup_form = SignUpForm()
-    return render(request, 'dating/user_sign.html', {'signup_form': signup_form})
+    else:
+        form = SignUpForm()
+    return render(request, 'dating/user_sign.html', {'signup_form': form})
 
 def user_interest(request):
     if request.user.is_authenticated:
         if request.method == 'POST':
-            data = request.POST
-            User_Profile.objects.update(interest= data['interest'])
-        return render(request, 'dating/interest.html')
+            data = request.POST['interest']
+            dp = request.FILES['dp']
+            print(dp)
+            print(data)
+            # User_Profile.objects.update(
+            # user=request.user,
+            # interest= data['interest'],
+            # dp= dp,
+            # bio= data['bio'],
+            # age= data['age'],
+            # gender= data['gender'],
+            # )
+            return HttpResponseRedirect('/dashboard/')
+
+        return render(request, 'dating/user_data.html')
 
 def user_login(request):
     if request.method == "POST":

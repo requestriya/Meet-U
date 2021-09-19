@@ -1,0 +1,60 @@
+{% extends 'dating/base.html' %}
+
+{% block content %}
+<style>
+  .form-group{
+    padding-top: 10px;
+  }
+</style>
+<div class="container my-5">
+    <form action="" method="POST" enctype="multipart/form-data">
+      {% csrf_token %}
+        <div class="form-row">
+            <div class="form-group col-12">
+                <label>Interest</label>
+                <input name="interest" type="text" placeholder="Enter your interest" class="form-control">
+              </div>
+        </div>
+
+        <div class="form-group">
+            <label>upload your display picture</label>
+            <input type="file" class="form-control-file" name="dp">
+        </div>
+        
+        <div class="form-group">
+          <label>Upload a Bio</label>
+          <input type="text" class="form-control" id="bio" placeholder="working at cognizant" name="bio">
+        </div>
+        <div class="form-row">
+          <div class="form-group col-md-6">
+            <label>Age</label>
+            <input type="number" class="form-control" id="age" placeholder="22" name="age">
+          </div>
+        </div>
+          <fieldset class="form-group">
+            <div class="row">
+              <legend class="col-form-label col-sm-2 pt-0">Radios</legend>
+              <div class="col-sm-10">
+                <div class="form-check">
+                  <input class="form-check-input" type="radio" name="gender" id="gender" value="male" checked>
+                  <label class="form-check-label" for="gender" required name="gender">
+                    male
+                  </label>
+                </div>
+                <div class="form-check">
+                  <input class="form-check-input" type="radio" name="gender" id="gender" value="female">
+                  <label class="form-check-label" for="gender" required name="gender">
+                    female
+                  </label>
+                </div>
+              </div>
+            </div>
+          </fieldset>
+        
+        <button type="submit" class="btn btn-primary">Sign in</button>
+      </form>
+</div>
+
+
+
+{% endblock content %}
